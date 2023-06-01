@@ -1,0 +1,5 @@
+1; Black coffee; ly; 30000;
+2; Capuchino; ly; 35000;
+3; Epresso; ly; 35000;
+4; Milk coffee; ly; 36000;
+5; Hot coffee; ly; 30000;

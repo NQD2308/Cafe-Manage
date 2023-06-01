@@ -1,0 +1,18 @@
+1650876242087	Rename package 'Interface'
+1650876266963	Rename package 'managedemo.data'
+1650876459507	Rename package 'manage_cafe'
+1650876491588	Rename package 'manage_Interface.gui'
+1650877739719	Rename package 'manage_cafe.gui'
+1650877773857	Rename package 'managecafe.gui'
+1650877815074	Rename package 'managecafe'
+1650883143157	Delete element
+1650968357902	Rename compilation unit 'JFr.java'
+1650969894752	Delete element
+1650972047275	Delete element
+1650972059592	Rename type 'JFrChangeAccnout'
+1650972188129	Delete element
+1651195295373	Rename type 'JFrChangeAccount'
+1651195333162	Rename type 'JFrAccount'
+1651255356270	Rename type 'JFrAccount_Create'
+1651299827724	Rename type 'JFrGoods'
+1651300847169	Rename type 'JFrMenu'

@@ -1,0 +1,561 @@
+package manage_cafe.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import manage_cafe.models.Product;
+import manage_cafe.models.ProductList;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.HeadlessException;
+
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.util.Vector;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.border.BevelBorder;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import java.awt.Color;
+import javax.swing.JMenuItem;
+import java.awt.Toolkit;
+
+public class JFrList_product extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	private JTextField txt_id;
+	private JTextField txt_product;
+	private JTextField txt_quantities;
+	private JTextField txt_search;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	DefaultTableModel model = null;
+	ProductList goodslist = new ProductList();
+	private JRadioButton rdbtn_Box;
+	private JRadioButton rdbtn_pakage;
+	private ButtonGroup btn_unit;
+	private JTextField txt_prb;
+	Product proupdate = null;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JFrList_product frame = new JFrList_product();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JFrList_product() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(JFrList_product.class.getResource("/manage_cafe/gui/icon/Logo_Coffeeshop.png")));
+		setTitle("Goods");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		setBounds(100, 100, 662, 474);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("File");
+		mnNewMenu.setForeground(Color.BLACK);
+		mnNewMenu.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Close all windows");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(EXIT_ON_CLOSE);
+			}
+		});
+		mntmNewMenuItem.setForeground(Color.BLACK);
+		mntmNewMenuItem.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Close");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+			}
+		});
+		mntmNewMenuItem_1.setForeground(Color.BLACK);
+		mntmNewMenuItem_1.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu_1 = new JMenu("Menu");
+		mnNewMenu_1.setForeground(Color.BLACK);
+		mnNewMenu_1.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Selling");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrOrder order = new JFrOrder();
+				order.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_2.setForeground(Color.BLACK);
+		mntmNewMenuItem_2.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Employee");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List_employee emp = new List_employee();
+				emp.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_4.setForeground(Color.BLACK);
+		mntmNewMenuItem_4.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_4);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Time Sheet");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrTimesheets ts = new JFrTimesheets();
+				ts.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_5.setForeground(Color.BLACK);
+		mntmNewMenuItem_5.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_5);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Warehouse");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrList_product pro = new JFrList_product();
+				pro.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_3.setForeground(Color.BLACK);
+		mntmNewMenuItem_3.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_3);
+		
+		JMenu mnNewMenu_2 = new JMenu("Abount");
+		mnNewMenu_2.setForeground(Color.BLACK);
+		mnNewMenu_2.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Functions");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Chương trình bao gồm có 6 chức năng chính:\n"
+						+ "  + Thêm thông tin hàng hóa mới\n  + Xóa thông tin hàng hóa cũ\n  + Nhập hàng hóa\n  + "
+						+ "Xuất hàng hóa\n  + Lưu thông tin hàng hóa\n  + Tìm kiếm thông tin hàng hóa bằng mã",
+						"Functions",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Entities");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Đây là chương trình quản lý kho hàng gồm các thực thể:\n  + Mã hàng hóa\n"
+						+ "  + Tên hàng hóa\n  + Số lượng hàng hóa trong một thàng\n  + Số hàng hàng sẽ nhập vào kho\n  +"
+						+ " Chọn nhập sĩ hoặc lẻ","Entities",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		mntmNewMenuItem_7.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_2.add(mntmNewMenuItem_7);
+		mntmNewMenuItem_6.setForeground(Color.BLACK);
+		mntmNewMenuItem_6.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_2.add(mntmNewMenuItem_6);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		rdbtn_Box = new JRadioButton("Box");
+		buttonGroup.add(rdbtn_Box);
+		rdbtn_Box.setSelected(true);
+		rdbtn_Box.setFont(new Font("Serif", Font.PLAIN, 18));
+		rdbtn_Box.setBounds(472, 149, 62, 21);
+		contentPane.add(rdbtn_Box);
+		
+		rdbtn_pakage = new JRadioButton("Pakage");
+		buttonGroup.add(rdbtn_pakage);
+		rdbtn_pakage.setFont(new Font("Serif", Font.PLAIN, 18));
+		rdbtn_pakage.setBounds(536, 149, 83, 21);
+		contentPane.add(rdbtn_pakage);
+		
+		btn_unit = new ButtonGroup();
+		btn_unit.add(rdbtn_Box);
+		btn_unit.add(rdbtn_pakage);
+		
+		JButton btn_newpro = new JButton("Add Product");
+		btn_newpro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Product goods = new Product();
+				ProductList prol = new ProductList();
+				//insert
+				goods.setIdg(txt_id.getText());
+				goods.setNameg(txt_product.getText());
+				goods.setQuantities(Integer.parseInt(txt_quantities.getText()));
+				goods.setPrb(Integer.parseInt(txt_prb.getText()));
+				
+				int total = 0;
+				if(rdbtn_Box.isSelected()) {
+					goods.setUnit(true);
+					total = goods.getPrb() * goods.getQuantities();
+				} else {
+					goods.setUnit(false);
+					total = goods.getPrb();	
+				}
+				goods.setInventnum(total);
+				
+				//Add
+				goodslist.addgoodṣ̣̣̣̣(goods);
+				
+				//refresh
+				goodslist.sortid();
+				model.getDataVector().clear();
+				System.out.println("Add "+goods.getInventnum()+"");
+				for(Product g : goodslist.getAllgoods()) {
+					Vector<String> v = new Vector<String>();
+					v.add(g.getIdg());
+					v.add(g.getNameg());
+					v.add("Pakage");
+					v.add(g.getInventnum()+"");
+					model.addRow(v);
+				}
+				
+				cleanForm();
+			}
+		});
+		btn_newpro.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_newpro.setBounds(10, 233, 136, 24);
+		contentPane.add(btn_newpro);
+		
+		JButton btn_export = new JButton("Export");
+		btn_export.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//lấy giá trị mới
+				proupdate.setPrb(Integer.parseInt(txt_prb.getText()));
+				proupdate.setQuantities(Integer.parseInt(txt_quantities.getText()));
+				
+				int total = 0;
+				if(rdbtn_Box.isSelected()) {
+					proupdate.setUnit(true);
+					total -= proupdate.getPrb() * proupdate.getQuantities();
+				} else {
+					proupdate.setUnit(false);
+					total = proupdate.getPrb();
+				}
+				proupdate.setInventnum(total);
+				
+				//update
+				goodslist.update(proupdate);
+				
+				//refresh
+				model.getDataVector().clear();
+				for(Product pr : goodslist.getAllgoods()) {
+					Vector<String> v = new Vector<String>();
+					v.add(pr.getIdg()+"");
+					v.add(pr.getNameg());
+					v.add("Pakage");
+					v.add(pr.getInventnum()+"");
+					model.addRow(v);
+				}
+				txt_prb.setText("");
+				txt_quantities.setText("");
+			}
+		});
+		btn_export.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_export.setBounds(10, 301, 136, 24);
+		contentPane.add(btn_export);
+		
+		JLabel lbl_title = new JLabel(" List goods");
+		lbl_title.setIcon(new ImageIcon(JFrList_product.class.getResource("/manage_cafe/gui/icon/warehouse_storage_icon.png")));
+		lbl_title.setFont(new Font("Serif", Font.ITALIC, 40));
+		lbl_title.setBounds(186, 10, 253, 62);
+		contentPane.add(lbl_title);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 82, 628, 2);
+		contentPane.add(separator);
+		
+		table = new JTable();		
+		model = new DefaultTableModel(
+			new String[] {
+				"ID", "Name", "Unit", "Invention"
+			},0
+		);
+		table.setModel(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(70);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(95);
+		table.getColumnModel().getColumn(3).setPreferredWidth(150);
+		uploaddata();
+		table.setFont(new Font("Serif", Font.PLAIN, 18));
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(156, 233, 482, 169);
+		contentPane.add(scrollPane);
+		
+		JLabel lbl_id = new JLabel("ID");
+		lbl_id.setFont(new Font("Serif", Font.PLAIN, 18));
+		lbl_id.setBounds(24, 112, 32, 24);
+		contentPane.add(lbl_id);
+		
+		txt_id = new JTextField();
+		txt_id.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_id.setColumns(10);
+		txt_id.setBounds(109, 111, 152, 25);
+		contentPane.add(txt_id);
+		
+		JLabel lbl_Product = new JLabel("Product");
+		lbl_Product.setFont(new Font("Serif", Font.PLAIN, 18));
+		lbl_Product.setBounds(24, 146, 75, 24);
+		contentPane.add(lbl_Product);
+		
+		txt_product = new JTextField();
+		txt_product.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_product.setColumns(10);
+		txt_product.setBounds(109, 146, 152, 25);
+		contentPane.add(txt_product);
+		
+		JLabel lbl_quantities = new JLabel("Quantities");
+		lbl_quantities.setFont(new Font("Serif", Font.PLAIN, 18));
+		lbl_quantities.setBounds(319, 146, 75, 24);
+		contentPane.add(lbl_quantities);
+		
+		txt_quantities = new JTextField();
+		txt_quantities.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_quantities.setColumns(10);
+		txt_quantities.setBounds(404, 147, 62, 25);
+		contentPane.add(txt_quantities);
+		
+		JButton btn_search = new JButton(" Search");
+		btn_search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// tìm kiếm bằng id
+				String id = txt_search.getText();
+				proupdate = goodslist.findbyid(id);
+				if(proupdate != null) {
+					//dua len giao dien
+					txt_id.setText(proupdate.getIdg());
+					txt_product.setText(proupdate.getNameg());
+					rdbtn_pakage.setSelected(true);
+					txt_prb.setText("");
+					txt_quantities.setText("");
+					
+					System.out.println(proupdate.getInventnum()+"");
+					clearformsearch();
+				} else {
+					txt_search.setText("");
+					JOptionPane.showMessageDialog(null, "Không có sản phảm này trong kho", "Message", 0);
+				}
+
+				//tìm kiếm bằng tên
+//				String name = txt_search.getText();
+//				Product goods = goodslist.findbyname(name);
+//				if(goods != null) {
+//					//dua len giao dien
+//					txt_id.setText(goods.getIdg());
+//					txt_product.setText(goods.getNameg());
+//					
+//					if(btn_unit.equals(rdbtn_Box)) {
+//						rdbtn_Box.setSelected(true);
+//					} else {
+//						rdbtn_pakage.setSelected(true);
+//					}
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Không có sản phảm này trong kho", "Mesage", 0);
+//				}
+			}
+		});
+		btn_search.setIcon(new ImageIcon(JFrList_product.class.getResource("/manage_cafe/gui/icon/search-icon.png")));
+		btn_search.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_search.setBounds(305, 199, 115, 24);
+		contentPane.add(btn_search);
+		
+		txt_search = new JTextField();
+		txt_search.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_search.setColumns(10);
+		txt_search.setBounds(430, 198, 189, 25);
+		contentPane.add(txt_search);
+		
+		JButton btn_import = new JButton("Import");
+		btn_import.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	
+				
+				//lấy giá trị mới 
+				proupdate.setPrb(Integer.parseInt(txt_prb.getText()));
+				proupdate.setQuantities(Integer.parseInt(txt_quantities.getText()));
+				
+				int total = 0;
+				if(rdbtn_Box.isSelected()) {
+					proupdate.setUnit(true);	
+					total = proupdate.getPrb() * proupdate.getQuantities();
+					System.out.println(proupdate.getQuantities() +" " +"*"+ " "+ proupdate.getPrb() +" = "+ total+"");
+				} else {
+					proupdate.setUnit(false);
+					total = proupdate.getPrb();
+					total = proupdate.getPrb();
+					System.out.println(proupdate.getPrb() +" = "+ total+"");
+				}
+				proupdate.setInventnum(total);
+				
+				
+				//Import
+				goodslist.update(proupdate);
+//				System.out.println("Import "+g.getInventnum()+"");
+				goodslist.sortid();
+				try {
+					if(goodslist.getAllgoods().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Không có nguyên liệu này trong danh sách để nhập hàng vào");
+					} else {
+						model.getDataVector().clear();
+						for(Product goods: goodslist.getAllgoods()) {
+							Vector<String> v = new Vector<String>();
+							v.add(goods.getIdg());
+							v.add(goods.getNameg());
+							v.add("Pakage");
+							v.add(goods.getInventnum()+"");
+							model.addRow(v);
+						}
+					}
+					txt_prb.setText("");
+					txt_quantities.setText("");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btn_import.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_import.setBounds(10, 267, 136, 24);
+		contentPane.add(btn_import);
+		
+		JButton btn_delete = new JButton("Delete");
+		btn_delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String id = txt_id.getText();
+				//delete
+				goodslist.deleteproduct(id);
+				
+				//refresh
+				JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nguyên liệu này không?");
+				try {
+					if(goodslist.getAllgoods().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Không có sản phẩm trong danh sách");
+					} else {
+						model.getDataVector().clear();
+						for(Product pro : goodslist.getAllgoods()) {
+							Vector<String> v = new Vector<String>();
+							v.add(pro.getIdg()+"");
+							v.add(pro.getNameg());
+							v.add("Pakage");
+							v.add(pro.getInventnum()+"");
+							model.addRow(v);
+						}
+					}
+					cleanForm();
+				} catch (HeadlessException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btn_delete.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_delete.setBounds(10, 335, 136, 24);
+		contentPane.add(btn_delete);
+		
+		JLabel lbl_prb = new JLabel("Pr/Box");
+		lbl_prb.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_prb.setFont(new Font("Serif", Font.PLAIN, 18));
+		lbl_prb.setBounds(319, 113, 62, 24);
+		contentPane.add(lbl_prb);
+		
+		txt_prb = new JTextField();
+		txt_prb.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_prb.setColumns(10);
+		txt_prb.setBounds(404, 112, 215, 25);
+		contentPane.add(txt_prb);
+		
+		JButton btn_save = new JButton("Save");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				goodslist.WriteDB();
+			}
+		});
+		btn_save.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_save.setBounds(10, 369, 136, 24);
+		contentPane.add(btn_save);
+		
+		JButton btn_back = new JButton("");
+		btn_back.setIcon(new ImageIcon(JFrList_product.class.getResource("/manage_cafe/gui/icon/Sign-Back-icon.png")));
+		btn_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrApps app = new JFrApps();
+				app.setVisible(true);
+				close();
+			}
+		});
+		btn_back.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_back.setBounds(20, 20, 63, 24);
+		contentPane.add(btn_back);
+	}
+	
+	public void cleanForm() {
+		try {
+			txt_id.setText("");
+			txt_prb.setText("");
+			rdbtn_Box.isSelected();
+			txt_product.setText("");
+			txt_quantities.setText("");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void clearformsearch() {
+		txt_search.setText("");
+	}
+	
+	public void uploaddata() {
+		goodslist.ReadDB();
+		goodslist.sortid();
+		//refresh
+		model.getDataVector().clear();
+		for(Product p : goodslist.getAllgoods()) {
+			Vector<String> v = new Vector<String>();
+			v.add(p.getIdg());
+			v.add(p.getNameg());
+			v.add("Pakage");
+			v.add(p.getInventnum()+"");
+			model.addRow(v);
+		}
+	}
+	
+	public void close() {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+}

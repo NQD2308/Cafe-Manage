@@ -1,0 +1,771 @@
+package manage_cafe.gui;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import manage_cafe.models.Account;
+import manage_cafe.models.Employee;
+import manage_cafe.models.Employee_List;
+import manage_cafe.models.Employee_position;
+import manage_cafe.models.Employee_timeworking;
+
+//import manage_cafe.models.Employee_Controller;
+
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+
+import javax.swing.JLabel;
+import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle.Control;
+import java.util.Vector;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+import java.awt.Color;
+import javax.swing.JPasswordField;
+import javax.swing.ButtonGroup;
+import javax.swing.border.MatteBorder;
+import javax.swing.UIManager;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+public class List_employee extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txt_searchid;
+	private JTable table_list;
+	private JTable table;
+	Employee_List list = new Employee_List();
+	ArrayList<Employee> listemps = new ArrayList<Employee>();
+	DefaultTableModel model = null;
+	JTable emp = new JTable();
+	private JTextField txt_name;
+	private JTextField txt_salary;
+	private JTextField txt_idcard;
+	private JTextField txt_daywork;
+	private JTextField txt_address;
+	private JTextField txt_email;
+	private JTextField txt_id;
+	private JTextField txt_account;
+	private JPasswordField passwordField;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton rdbtn_Female;
+	private JRadioButton rdbtn_Male;
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private AbstractButton rdbtn_fulltime;
+	private JRadioButton rdbtn_parttime;
+	private JComboBox comboBox_position;
+	private JComboBox comboBox_timewworking;
+	private ButtonGroup btn_gender;
+	private ButtonGroup btn_position;
+	Locale localeVN = new Locale("vi","VN"); 
+	NumberFormat vn = NumberFormat.getInstance(localeVN);
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					List_employee frame = new List_employee();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @throws IOException 
+	 */
+	public List_employee() throws IOException {
+		setTitle("Employee Information");
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1238, 654);
+		
+		BufferedImage pic = ImageIO.read(this.getClass().getResource("add-icon.png"));
+		JLabel icon = new JLabel(new ImageIcon(pic));
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("File");
+		mnNewMenu.setForeground(Color.BLACK);
+		mnNewMenu.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Close all windows");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(EXIT_ON_CLOSE);
+			}
+		});
+		mntmNewMenuItem.setForeground(Color.BLACK);
+		mntmNewMenuItem.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Close");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+			}
+		});
+		mntmNewMenuItem_1.setForeground(Color.BLACK);
+		mntmNewMenuItem_1.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu_1 = new JMenu("Menu");
+		mnNewMenu_1.setForeground(Color.BLACK);
+		mnNewMenu_1.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Selling");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrOrder order = new JFrOrder();
+				order.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_2.setForeground(Color.BLACK);
+		mntmNewMenuItem_2.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Employee");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List_employee emp = new List_employee();
+				emp.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_4.setForeground(Color.BLACK);
+		mntmNewMenuItem_4.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_4);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Time Sheet");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrTimesheets ts = new JFrTimesheets();
+				ts.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_5.setForeground(Color.BLACK);
+		mntmNewMenuItem_5.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_5);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Warehouse");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrList_product pro = new JFrList_product();
+				pro.setVisible(true);
+			}
+		});
+		mntmNewMenuItem_3.setForeground(Color.BLACK);
+		mntmNewMenuItem_3.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_1.add(mntmNewMenuItem_3);
+		
+		JMenu mnNewMenu_2 = new JMenu("Abount");
+		mnNewMenu_2.setForeground(Color.BLACK);
+		mnNewMenu_2.setFont(new Font("Serif", Font.PLAIN, 14));
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Task Employee");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Đây là chương trình quản lý nhân  viên bao gồm có 5 chưc năng chính:\n"
+						+ "+ Thêm nhân viên mới\n+ Xóa nhân viên cũ\n+ Chỉnh sửa thông tin\n+ "
+						+ "Lưu thông tin\n" + "+ Tìm kiếm thông tin nhân viên bằng mã","Employee programme",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		mntmNewMenuItem_6.setForeground(Color.BLACK);
+		mntmNewMenuItem_6.setFont(new Font("Serif", Font.PLAIN, 14));
+		mnNewMenu_2.add(mntmNewMenuItem_6);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);  
+		contentPane.setLayout(null);
+		
+//		Action action = new Employee_Controller(this);
+		
+		JLabel lbl_liststaff = new JLabel("  Employee list");
+		lbl_liststaff.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Preppy-icon (1).png")));
+		lbl_liststaff.setFont(new Font("Serif", Font.PLAIN, 30));
+		lbl_liststaff.setBounds(479, 24, 354, 117);
+		contentPane.add(lbl_liststaff);
+		
+		JLabel lblInformation = new JLabel("------ PERSONAL INFORMATION ------");
+		lblInformation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInformation.setFont(new Font("Serif", Font.PLAIN, 25));
+		lblInformation.setBounds(38, 155, 432, 61);
+		contentPane.add(lblInformation);
+		
+		JLabel lbl_name = new JLabel("Name");
+		lbl_name.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_name.setBounds(38, 226, 54, 24);
+		contentPane.add(lbl_name);
+		
+		txt_name = new JTextField();
+		txt_name.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_name.setColumns(10);
+		txt_name.setBounds(162, 227, 315, 24);
+		contentPane.add(txt_name);
+		
+		JLabel lbl_phonemunber = new JLabel("Salary");
+		lbl_phonemunber.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_phonemunber.setBounds(952, 226, 93, 24);
+		contentPane.add(lbl_phonemunber);
+		
+		txt_salary = new JTextField();
+		txt_salary.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_salary.setColumns(10);
+		txt_salary.setBounds(1055, 227, 143, 24);
+		contentPane.add(txt_salary);
+		
+		txt_idcard = new JTextField();
+		txt_idcard.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_idcard.setColumns(10);
+		txt_idcard.setBounds(162, 258, 113, 24);
+		contentPane.add(txt_idcard);
+		
+		JLabel lbl_idcard = new JLabel("ID Card");
+		lbl_idcard.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_idcard.setBounds(38, 257, 114, 24);
+		contentPane.add(lbl_idcard);
+		
+		rdbtn_Male = new JRadioButton("Male");
+		buttonGroup.add(rdbtn_Male);
+		rdbtn_Male.setSelected(true);
+		rdbtn_Male.setFont(new Font("Serif", Font.PLAIN, 20));
+		rdbtn_Male.setBounds(298, 264, 69, 21);
+		contentPane.add(rdbtn_Male);
+		
+		rdbtn_Female = new JRadioButton("Female");
+		buttonGroup.add(rdbtn_Female);
+		rdbtn_Female.setFont(new Font("Serif", Font.PLAIN, 20));
+		rdbtn_Female.setBounds(381, 264, 84, 21);
+		contentPane.add(rdbtn_Female);
+		
+		btn_gender = new ButtonGroup();
+		btn_gender.add(rdbtn_Male);
+		btn_gender.add(rdbtn_Female);
+		
+		JLabel lbl_date = new JLabel("Day work");
+		lbl_date.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_date.setBounds(569, 360, 114, 24);
+		contentPane.add(lbl_date);
+		
+		txt_daywork = new JTextField();
+		txt_daywork.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_daywork.setColumns(10);
+		txt_daywork.setBounds(693, 361, 211, 24);
+		contentPane.add(txt_daywork);
+		
+		JLabel lbl_address = new JLabel("Address");
+		lbl_address.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_address.setBounds(38, 297, 84, 24);
+		contentPane.add(lbl_address);
+		
+		txt_address = new JTextField();
+		txt_address.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_address.setColumns(10);
+		txt_address.setBounds(162, 296, 315, 25);
+		contentPane.add(txt_address);
+		
+		JLabel lbl_email = new JLabel("Email");
+		lbl_email.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_email.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_email.setBounds(38, 331, 69, 24);
+		contentPane.add(lbl_email);
+		
+		txt_email = new JTextField();
+		txt_email.setText("           ");
+		txt_email.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_email.setColumns(10);
+		txt_email.setBounds(162, 332, 315, 24);
+		contentPane.add(txt_email);
+		
+		JLabel lblNewLabel = new JLabel("---------- JOB INFORMATION ----------");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		lblNewLabel.setBounds(677, 155, 471, 61);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lbl_id = new JLabel("ID");
+		lbl_id.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_id.setBounds(569, 226, 27, 24);
+		contentPane.add(lbl_id);
+		
+		txt_id = new JTextField();
+		txt_id.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_id.setColumns(10);
+		txt_id.setBounds(693, 227, 205, 24);
+		contentPane.add(txt_id);
+		
+		JLabel lbl_position = new JLabel("Position");
+		lbl_position.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_position.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_position.setBounds(569, 259, 93, 24);
+		contentPane.add(lbl_position);
+		
+		comboBox_position = new JComboBox();
+		ArrayList<Employee_position> listpos = Employee_position.getposition();
+		comboBox_position.addItem("Choose position you want");
+		for(Employee_position pos : listpos) {
+			comboBox_position.addItem(pos.getPosition());
+		}
+		comboBox_position.setFont(new Font("Serif", Font.PLAIN, 20));
+		comboBox_position.setBackground(Color.WHITE);
+		comboBox_position.setBounds(693, 258, 205, 24);
+		contentPane.add(comboBox_position);
+		
+		rdbtn_fulltime = new JRadioButton("Full time");
+		buttonGroup_1.add(rdbtn_fulltime);
+		rdbtn_fulltime.setSelected(true);
+		rdbtn_fulltime.setFont(new Font("Serif", Font.PLAIN, 20));
+		rdbtn_fulltime.setBounds(693, 325, 103, 24);
+		contentPane.add(rdbtn_fulltime);
+		
+		rdbtn_parttime = new JRadioButton("Part time");
+		buttonGroup_1.add(rdbtn_parttime);
+		rdbtn_parttime.setFont(new Font("Serif", Font.PLAIN, 20));
+		rdbtn_parttime.setBounds(795, 325, 103, 24);
+		contentPane.add(rdbtn_parttime);
+		
+		btn_position = new ButtonGroup();
+		btn_position.add(rdbtn_fulltime);
+		btn_position.add(rdbtn_parttime);
+		
+		JLabel lbl_form = new JLabel("Form");
+		lbl_form.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_form.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_form.setBounds(569, 325, 64, 24);
+		contentPane.add(lbl_form);
+		
+		JLabel lbl_timeworking = new JLabel("Time working");
+		lbl_timeworking.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_timeworking.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_timeworking.setBounds(569, 291, 114, 24);
+		contentPane.add(lbl_timeworking);
+		
+		JLabel lbl_Account = new JLabel("Account");
+		lbl_Account.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_Account.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_Account.setBounds(952, 260, 93, 24);
+		contentPane.add(lbl_Account);
+		
+		txt_account = new JTextField();
+		txt_account.setFont(new Font("Serif", Font.PLAIN, 20));
+		txt_account.setColumns(10);
+		txt_account.setBounds(1055, 261, 143, 24);
+		contentPane.add(txt_account);
+		
+		JLabel lbl_password = new JLabel("Password");
+		lbl_password.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_password.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_password.setBounds(952, 293, 93, 24);
+		contentPane.add(lbl_password);
+		
+		comboBox_timewworking = new JComboBox();
+		ArrayList<Employee_timeworking> listtime = Employee_timeworking.gettime();
+		comboBox_timewworking.addItem("Choose time to work");
+		for(Employee_timeworking time : listtime) {
+			comboBox_timewworking.addItem(time.getTime());
+		}
+		
+		comboBox_timewworking.setFont(new Font("Serif", Font.PLAIN, 20));
+		comboBox_timewworking.setBackground(Color.WHITE);
+		comboBox_timewworking.setBounds(693, 290, 205, 24);
+		contentPane.add(comboBox_timewworking);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(1055, 296, 143, 24);
+		JButton btn_search = new JButton("Search");
+		contentPane.add(passwordField);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(38, 146, 1160, 2);
+		contentPane.add(separator);
+		
+		txt_searchid = new JTextField();
+		txt_searchid.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_searchid.setBounds(972, 421, 227, 30);
+		contentPane.add(txt_searchid);
+		txt_searchid.setColumns(10);
+		
+		btn_search = new JButton(" Search");
+		btn_search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int id =Integer.parseInt(txt_searchid.getText());
+				Employee emp = list.findbyid(id);
+//				System.out.println(emp);
+				try {
+					if(emp != null) {
+						//gan gia tri len giao dien
+						SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyy");
+						txt_name.setText(emp.getName());
+						txt_idcard.setText(emp.getIdcard()+"");
+						txt_address.setText(emp.getAddress());
+						txt_email.setText(emp.getEmail());
+						txt_daywork.setText(df.format(emp.getDaywork()));//
+						txt_id.setText(emp.getId()+"");
+						txt_salary.setText(vn.format(emp.getSalary()) +"");
+						txt_account.setText(emp.getAccount().getAccount());
+						comboBox_position.setSelectedItem(emp.getPosition().getPosition());
+						comboBox_timewworking.setSelectedItem(emp.getTimeworking().getTime());
+						
+					if(btn_gender.equals("Nam")|| btn_gender.equals("true")) {
+						rdbtn_Male.setSelected(true);
+					} else {
+						rdbtn_Female.setSelected(false);
+					}
+						
+						txt_searchid.setText("");
+					} else {
+						txt_searchid.setText("");
+						JOptionPane.showMessageDialog(null, "Không tìm thấy nhân viên này", "Message", 0);
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btn_search.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/search-icon.png")));
+		btn_search.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_search.setBounds(837, 421, 125, 30);
+		contentPane.add(btn_search);
+		
+		JButton btn_add = new JButton(" ADD");
+		btn_add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 Employee emp = new Employee();
+				 emp.setName(txt_name.getText());
+				 emp.setIdcard(Integer.parseInt(txt_idcard.getText()));
+				 emp.setAddress(txt_address.getText());
+				 emp.setEmail(txt_email.getText());
+				 emp.setSalary(Double.parseDouble(txt_salary.getText()));
+				 emp.setId(Integer.parseInt(txt_id.getText()));
+				 
+				 Account acc = new Account();
+				 acc.setAccount(txt_account.getText());
+				 acc.setPass(passwordField.getText());
+				 emp.setAccount(acc);
+				 
+				 Employee_position empp = new Employee_position();
+				 empp.setPosition(comboBox_position.getSelectedItem().toString());
+				 emp.setPosition(empp);
+				 
+				 Employee_timeworking empt = new Employee_timeworking();
+				 empt.setTime(comboBox_timewworking.getSelectedItem().toString());
+				 emp.setTimeworking(empt);
+				 
+				 if(rdbtn_Male.isSelected()) {
+					 emp.setSex(true);
+				 } else {
+					 emp.setSex(false);
+				 }
+				 
+				 if(rdbtn_fulltime.isSelected()) {
+					 emp.setKoj(true);
+				 } else {
+					 emp.setKoj(false);
+				 }
+				 
+				 SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+				 Date d;
+				 try {
+					 Date daywork = date.parse(txt_daywork.getText());
+					 emp.setDaywork(daywork);
+				 } catch(Exception e1) {
+					 e1.printStackTrace();
+				 }
+				 
+				 list.addEmployee(emp);
+				 list.sortbyid();
+				 model.getDataVector().clear();
+					for(Employee emps: list.getAllEmployee()) {
+						Vector<String> v = new Vector<String>(); 
+						v.add(emps.getId()+"");
+						v.add(emps.getName());
+						v.add(emps.isSex()?"Nam": "Nu");
+						v.add(emps.getIdcard()+"");
+						v.add(emps.getAddress());
+						v.add(emps.getEmail());
+						v.add(date.format(emps.getDaywork()));
+						v.add(emps.getPosition().getPosition());
+						v.add(emps.getTimeworking().getTime());
+						v.add(emps.isKoj()?"Full time": "Part time");
+						v.add(vn.format(emps.getSalary())+"");
+						v.add(emps.getAccount().getAccount());
+						model.addRow(v);
+						}
+					cleanForm();
+			}
+		});
+		btn_add.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_add.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/add-icon.png")));
+		btn_add.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_add.setBounds(52, 421, 140, 30);
+		contentPane.add(btn_add);
+		
+		JButton btn_delete = new JButton(" DELETE");
+//		btn_delete.addActionListener(action);
+		btn_delete.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int id = Integer.parseInt(txt_id.getText());
+				
+				//delete
+				list.deleteEmployee(id);
+				
+				//refresh
+				try {
+					if(list.getAllEmployee().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Không có nhân viên nào trong danh sách","Message",0);
+					} else {
+						SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+						JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa nhân viên này không?","Message",0);
+						
+						model.getDataVector().clear();
+						for(Employee emps: list.getAllEmployee()) {
+							
+							Vector<String> v = new Vector<>();
+							v.add(emps.getId()+"");
+							v.add(emps.getName());
+							v.add(emps.isSex()?"Nam": "Nu");
+							v.add(emps.getIdcard()+"");
+							v.add(emps.getAddress());
+							v.add(emps.getEmail());
+							v.add(date.format(emps.getDaywork()));
+							v.add(emps.getPosition().getPosition());
+							v.add(emps.getTimeworking().getTime());
+							v.add(emps.isKoj()?"Full time": "Part time");
+							v.add(vn.format(emps.getSalary())+"");
+							v.add(emps.getAccount().getAccount());
+							model.addRow(v);
+						}
+					}
+					cleanForm();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btn_delete.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/delete-icon.png")));
+		btn_delete.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_delete.setBounds(202, 421, 142, 30);
+		contentPane.add(btn_delete);
+		
+		JButton btn_edit = new JButton("UPDATE");
+		btn_edit.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				Employee emp = new Employee();
+				//gan gia tri moi
+//				 emp.setPhonenum(txt_phonenum.getText());
+				 emp.setAddress(txt_address.getText());
+				 emp.setEmail(txt_email.getText());
+				 emp.setId(Integer.parseInt(txt_id.getText()));
+				 emp.setSalary(Double.parseDouble(txt_salary.getText()));
+				 
+				 Account acc = new Account();
+				 acc.setAccount(txt_account.getText());
+				 acc.setPass(passwordField.getText());
+				 emp.setAccount(acc);
+				 
+				 Employee_position empp = new Employee_position();
+				 empp.setPosition(comboBox_position.getSelectedItem().toString());
+				 emp.setPosition(empp);
+				 
+				 Employee_timeworking empt = new Employee_timeworking();
+				 empt.setTime(comboBox_timewworking.getSelectedItem().toString());
+				 emp.setTimeworking(empt);
+				 
+				 if(rdbtn_fulltime.isSelected()) {
+					 emp.setKoj(true);
+				 } else {
+					 emp.setKoj(false);
+				 }
+				 
+				 //update
+				 list.updateemp(emp);
+				 
+				 //refresh
+				 SimpleDateFormat df =new SimpleDateFormat("dd/MM/yyyy");
+				 model.getDataVector().clear();
+				 for(Employee emps: list.getAllEmployee()) {
+						Vector<String> v = new Vector<String>(); 
+						v.add(emps.getId()+"");
+						v.add(emps.getName());
+						v.add(emps.isSex()?"Nam": "Nu");
+						v.add(emps.getIdcard()+"");
+						v.add(emps.getAddress());
+						v.add(emps.getEmail());
+						v.add(df.format(emps.getDaywork()));
+						v.add(emps.getPosition().getPosition());
+						v.add(emps.getTimeworking().getTime());
+						v.add(emps.isKoj()?"Full time": "Part time");
+						v.add(vn.format(emps.getSalary())+"");
+						v.add(emps.getAccount().getAccount());
+						model.addRow(v);
+						}
+			}
+		});
+		btn_edit.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_edit.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Pencil-icon.png")));
+		btn_edit.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_edit.setBounds(354, 421, 142, 30);
+		contentPane.add(btn_edit);
+		
+		JButton btn_reload = new JButton(" RELOAD");
+		btn_reload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cleanForm();
+			}
+		});
+//		btn_reload.addActionListener(action);
+		btn_reload.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Button-Refresh-icon.png")));
+		btn_reload.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_reload.setBounds(506, 421, 142, 30);
+		contentPane.add(btn_reload);
+		
+		
+		
+		
+		table = new JTable();
+		table.setBorder(UIManager.getBorder("RadioButton.border"));
+		table.setBounds(10, 506, 1214, 158);
+		model = new DefaultTableModel(
+			
+			new String[] {
+				"ID", "Name", "Gender", "CMND/CCCD", "Address", "Email", "Day Work", "Position", "Shift", "Kind Of Job", "Salary", "Account"
+			},0
+		);
+		table.setModel(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setPreferredWidth(180);
+		table.getColumnModel().getColumn(2).setPreferredWidth(55);
+		table.getColumnModel().getColumn(3).setPreferredWidth(95);
+		table.getColumnModel().getColumn(4).setPreferredWidth(300);
+		table.getColumnModel().getColumn(5).setPreferredWidth(150);
+		table.getColumnModel().getColumn(6).setPreferredWidth(90);
+		table.getColumnModel().getColumn(7).setPreferredWidth(80);
+		table.getColumnModel().getColumn(11).setPreferredWidth(100);
+		table.setFont(new Font("Serif", Font.PLAIN, 18));
+		loaddata();
+		
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(10, 461, 1204, 146);
+		contentPane.add(scrollPane);	
+		
+		JButton btn_save = new JButton("SAVE");
+		btn_save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				list.WriteDB();
+				JOptionPane.showMessageDialog(null, "Lưu thành công");
+			}
+		});
+		btn_save.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/floppy-icon.png")));
+		btn_save.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_save.setBounds(658, 421, 142, 30);
+		contentPane.add(btn_save);
+		
+		JButton btn_back = new JButton("");
+		btn_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrApps app = new JFrApps();
+				app.setVisible(true);
+				close();
+			}
+		});
+		btn_back.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Sign-Back-icon.png")));
+		btn_back.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_back.setBounds(20, 24, 63, 28);
+		contentPane.add(btn_back);
+	}
+	
+	public void cleanForm() {
+		txt_name.setText("");
+		txt_idcard.setText("");
+		rdbtn_Male.setSelected(true);
+		txt_salary.setText("");
+		txt_address.setText("");
+		txt_daywork.setText("");
+		txt_email.setText("");
+		txt_id.setText("");
+		rdbtn_fulltime.setSelected(true);
+		txt_account.setText("");
+		passwordField.setText("");
+		comboBox_position.setSelectedIndex(0);
+		comboBox_timewworking.setSelectedIndex(0);
+	}
+	
+	public void close() {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	public void loaddata() {
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		list.ReadDB();
+		list.sortbyid();
+		 //refresh
+		 model.getDataVector().clear();
+		 for(Employee emps: list.getAllEmployee()) {
+				Vector<String> v = new Vector<String>(); 
+				v.add(emps.getId()+"");
+				v.add(emps.getName());
+				v.add(emps.isSex()?"Nam": "Nu");
+				v.add(emps.getIdcard()+"");
+				v.add(emps.getAddress());
+				v.add(emps.getEmail());
+				v.add(df.format(emps.getDaywork()));
+				v.add(emps.getPosition().getPosition());
+				v.add(emps.getTimeworking().getTime());
+				v.add(emps.isKoj()?"Full time": "Part time");
+				v.add(vn.format(emps.getSalary())+"");
+				v.add(emps.getAccount().getAccount());
+				model.addRow(v);
+				}
+	}
+}

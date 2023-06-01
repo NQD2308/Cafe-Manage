@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/manage_cafe/data/BillData.txt=UTF-8
+encoding//src/manage_cafe/data/Employee.txt=UTF-8
+encoding//src/manage_cafe/gui/JFrApps.java=UTF-8
+encoding//src/manage_cafe/gui/JFrList_product.java=UTF-8
+encoding//src/manage_cafe/gui/JFrLogin.java=UTF-8
+encoding//src/manage_cafe/gui/JFrOrder.java=UTF-8
+encoding//src/manage_cafe/gui/JFrTimesheets.java=UTF-8
+encoding//src/manage_cafe/gui/List_employee.java=UTF-8
+encoding//src/manage_cafe/models/Employee_position.java=UTF-8
+encoding//src/manage_cafe/models/MenuList.java=UTF-8

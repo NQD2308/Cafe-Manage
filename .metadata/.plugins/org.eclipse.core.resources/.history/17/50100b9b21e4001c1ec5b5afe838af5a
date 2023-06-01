@@ -1,0 +1,217 @@
+package manage_cafe.gui;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import manage_cafe.models.Employee;
+import manage_cafe.models.Employee_List;
+
+//import manage_cafe.models.Employee_Controller;
+
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.ResourceBundle.Control;
+import java.util.Vector;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+public class List_employee extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txt_searchid;
+	private JTable table_list;
+	private JTable table;
+	Employee_List list = new Employee_List();
+	DefaultTableModel model = null;
+	JTable emp = new JTable();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					List_employee frame = new List_employee();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public List_employee() {
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1469, 488);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);  
+		contentPane.setLayout(null);
+		
+//		Action action = new Employee_Controller(this);
+		
+		JLabel lbl_liststaff = new JLabel("  Employee list");
+		lbl_liststaff.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Preppy-icon (1).png")));
+		lbl_liststaff.setFont(new Font("Serif", Font.PLAIN, 30));
+		lbl_liststaff.setBounds(574, 27, 354, 117);
+		contentPane.add(lbl_liststaff);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(38, 146, 1373, 2);
+		contentPane.add(separator);
+		
+		txt_searchid = new JTextField();
+		txt_searchid.setFont(new Font("Serif", Font.PLAIN, 18));
+		txt_searchid.setBounds(1184, 248, 227, 30);
+		contentPane.add(txt_searchid);
+		txt_searchid.setColumns(10);
+		
+		JButton btn_search = new JButton(" Search");
+		btn_search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton btn_search = new JButton("Search");
+				
+				int id =Integer.parseInt(txt_searchid.getText());
+				Employee emp = list.findbyid(id);
+				if(emp != null) {
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Data not found", "Message", 0);
+				}
+			}
+		});
+		btn_search.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/search-icon.png")));
+		btn_search.setFont(new Font("Serif", Font.PLAIN, 18));
+		btn_search.setBounds(1049, 248, 125, 30);
+		contentPane.add(btn_search);
+		
+		JButton btn_add = new JButton(" ADD");
+		btn_add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrStaff_info create = new JFrStaff_info();
+				create.setVisible(true);
+//				cloe();
+			}
+		});
+		btn_add.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_add.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/add-icon.png")));
+		btn_add.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_add.setBounds(82, 248, 140, 30);
+		contentPane.add(btn_add);
+		
+		JButton btn_delete = new JButton(" DELETE");
+//		btn_delete.addActionListener(action);
+		btn_delete.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btn_delete.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/delete-icon.png")));
+		btn_delete.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_delete.setBounds(288, 248, 142, 30);
+		contentPane.add(btn_delete);
+		
+		JButton btn_edit = new JButton(" EDIT");
+		btn_edit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrStaff_info staff = new JFrStaff_info();
+				staff.setVisible(true);
+			}
+		});
+		btn_edit.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_edit.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Pencil-icon.png")));
+		btn_edit.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_edit.setBounds(493, 248, 142, 30);
+		contentPane.add(btn_edit);
+		
+		JButton btn_reload = new JButton(" RELOAD");
+//		btn_reload.addActionListener(action);
+		btn_reload.setIcon(new ImageIcon(List_employee.class.getResource("/manage_cafe/gui/icon/Button-Refresh-icon.png")));
+		btn_reload.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_reload.setBounds(691, 248, 142, 30);
+		contentPane.add(btn_reload);
+		
+		table = new JTable();
+		
+		 model =		new DefaultTableModel(
+			
+			new String[] {
+				"ID", "Name", "Gender", "Birthday", "CMND/CCCD", "Address", "Phone Number", "Email", "Position", "Shift", "Kind Of Job", "Account"
+			},0
+		);
+		table.setModel(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(70);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(95);
+		table.getColumnModel().getColumn(5).setPreferredWidth(150);
+		table.getColumnModel().getColumn(6).setPreferredWidth(90);
+		table.getColumnModel().getColumn(7).setPreferredWidth(100);
+		table.getColumnModel().getColumn(11).setPreferredWidth(100);
+		table.setFont(new Font("Serif", Font.PLAIN, 18));
+		
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(10, 288, 1435, 153);
+//		emp.setModel(model);
+//		scrollPane.setViewportView(emp);
+		contentPane.add(scrollPane);
+		
+	}
+	
+	public void addEmployees(Employee e) {
+		list.addEmployee(e);
+		model.getDataVector().clear();
+		
+		for(Employee emp: list.getAllEmployee()) {
+		Vector<String> v = new Vector<String>(); 
+		
+		v.add(e.getId()+"");
+		v.add(e.getName());
+		v.add(e.isSex()?"Nam": "Nu");
+		SimpleDateFormat d= new SimpleDateFormat("dd/MM/yyyy");
+		v.add(d.format(e.getBirthday()));
+		v.add(e.getIdcard()+"");
+		v.add(e.getAddress());
+		v.add(e.getPhonenum());
+		v.add(e.getEmail());
+		v.add(e.getPosition().getPosition());
+		v.add(e.getTimeworking().getTime());
+		v.add(e.isKoj()?"Full time": "Part time");
+		v.add(e.getAccount().getAccount());
+		model.addRow(v);
+		}
+	}
+	public void close() {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+}

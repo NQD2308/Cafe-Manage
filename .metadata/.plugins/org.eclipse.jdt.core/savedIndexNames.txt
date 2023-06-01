@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+D:\Hoa Sen University\IT\Lap Trinh Huong Doi Tuong\LAB\Project\.metadata\.plugins\org.eclipse.jdt.core
+1091878932.index
+1353544669.index
+1865797976.index
+3417045137.index

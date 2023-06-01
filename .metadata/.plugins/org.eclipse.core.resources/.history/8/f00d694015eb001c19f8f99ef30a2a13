@@ -1,0 +1,118 @@
+package manage_cafe.models;
+
+import java.util.Objects;
+
+public class Menu extends Employee {
+	private int id;
+	private Menu_Drink mdr;
+	private Menu_Topping mtop;
+	private String size;
+	private String suger;
+	private String ice;
+	private int cost_drink;
+	private int cost_topping;
+	private int total;
+	private int totalbill;
+	java.util.Date date = new java.util.Date();
+	
+	
+	public Menu() {
+
+	}
+
+	public Menu_Drink getMdr() {
+		return mdr;
+	}
+
+	public void setMdr(Menu_Drink mdr) {
+		this.mdr = mdr;
+	}
+
+	public Menu_Topping getMtop() {
+		return mtop;
+	}
+
+	public void setMtop(Menu_Topping mtop) {
+		this.mtop = mtop;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getSuger() {
+		return suger;
+	}
+
+	public void setSuger(String suger) {
+		this.suger = suger;
+	}
+
+	public String getIce() {
+		return ice;
+	}
+
+	public void setIce(String ice) {
+		this.ice = ice;
+	}
+
+	public int getCost_drink() {
+		return cost_drink;
+	}
+
+	public void setCost_drink(int cost_drink) {
+		this.cost_drink = cost_drink;
+	}
+
+	public int getCost_topping() {
+		return cost_topping;
+	}
+
+	public void setCost_topping(int cost_topping) {
+		this.cost_topping = cost_topping;
+	}
+
+	public int getTotal() {
+		return cost_drink + cost_topping;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getTotalbill() {
+		return totalbill;
+	}
+
+	public void setTotalbill(int totalbill) {
+		this.totalbill = totalbill;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
+	public int getId1() {
+		return ++id;
+	}
+	
+	public int getId2() {
+		return --id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public java.util.Date getDate() {
+		return date;
+	}
+
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.models.table.TableModelDialog">
+		<item key="x" value="2400"/>
+		<item key="y" value="92"/>
+		<item key="width" value="1171"/>
+		<item key="height" value="670"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.property.editor.string.StringPropertyDialog">
+		<item key="x" value="1220"/>
+		<item key="y" value="295"/>
+		<item key="width" value="700"/>
+		<item key="height" value="440"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.property.order.ReorderDialog">
+		<item key="x" value="619"/>
+		<item key="y" value="278"/>
+		<item key="width" value="682"/>
+		<item key="height" value="473"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.nls.ui.NlsDialog">
+		<item key="x" value="0"/>
+		<item key="y" value="245"/>
+		<item key="width" value="1920"/>
+		<item key="height" value="540"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.util.ExposeComponentSupport$ExposeDialog">
+		<item key="x" value="610"/>
+		<item key="y" value="327"/>
+		<item key="width" value="700"/>
+		<item key="height" value="375"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.actions.errors.ErrorsDialog">
+		<item key="x" value="515"/>
+		<item key="y" value="100"/>
+		<item key="width" value="890"/>
+		<item key="height" value="830"/>
+	</section>
+</section>

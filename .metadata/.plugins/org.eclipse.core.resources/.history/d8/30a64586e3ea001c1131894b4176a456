@@ -1,0 +1,78 @@
+package manage_cafe.models;
+
+import java.util.Date;
+import java.util.Objects;
+
+public class Product{
+	
+	private String idg;
+	private String nameg;
+	private boolean unit;
+	private int inventnum;
+	private int expinventnum;
+	private int quantities;
+	private int prb;
+	private int totalpro;
+	
+	public Product() {
+		
+	}
+
+	public String getIdg() {
+		return idg;
+	}
+
+	public void setIdg(String idg) {
+		this.idg = idg;
+	}
+
+	public String getNameg() {
+		return nameg;
+	}
+
+	public void setNameg(String nameg) {
+		this.nameg = nameg;
+	}
+
+	public boolean isUnit() {
+		return unit;
+	}
+
+	public void setUnit(boolean unit) {
+		this.unit = unit;
+	}
+
+	public int getInventnum() {
+		return inventnum;
+	}
+
+	public void setInventnum(int inventnum) {
+		this.inventnum += inventnum;
+//		System.out.println(inventnum+"" +"+"+ this.inventnum+"");
+	}
+
+	public int getQuantities() {
+		return quantities;
+	}
+
+	public int getExpinventnum() {
+		return expinventnum;
+	}
+
+	public void setExpinventnum(int expinventnum) {
+		this.expinventnum -= getInventnum();
+		System.out.println(expinventnum+"" +"+"+ this.expinventnum+"");
+	}
+
+	public void setQuantities(int quantities) {
+		this.quantities = quantities;
+	}
+
+	public int getPrb() {
+		return prb;
+	}
+
+	public void setPrb(int prb) {
+		this.prb = prb;
+	}
+}

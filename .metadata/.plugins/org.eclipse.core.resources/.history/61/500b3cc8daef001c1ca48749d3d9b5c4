@@ -1,0 +1,181 @@
+package manage_cafe.models;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+
+public class Employee_List {
+	private ArrayList<Employee> list;
+	Locale localeVN = new Locale("vi","VN"); 
+	NumberFormat vn = NumberFormat.getInstance(localeVN);
+	
+	public Employee_List() {
+		list = new ArrayList<Employee>();
+
+	}
+	
+	public void addEmployee(Employee e) {
+		list.add(e);
+	}
+
+	public Employee findbyid(int id) {
+		for(Employee emp : list) {
+			if(emp.getId() == id) {
+				return emp;
+			}
+		} return null;
+	}
+	
+	public void ReadDB() {
+		String path = "D:\\Hoa Sen University\\IT\\Lap Trinh Huong Doi Tuong\\LAB\\Project\\Manage cafe\\src\\manage_cafe\\data\\Employee.txt";
+		try {
+			File f = new File(path);
+			FileReader fr= new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			
+			String line = br.readLine();
+			while(line != null) {
+//				System.out.println(line);
+				
+				String [] temp = line.split(";");
+				
+//				for(int i=0;i<temp.length;i++) {
+//					
+//					System.out.println(" i = "+i+"-->"+temp[i]);
+//				}
+				
+				Employee emp = new Employee();
+				
+				emp.setId(Integer.parseInt(temp[0]));
+				
+				emp.setName(temp[1]);
+				emp.setIdcard(Integer.parseInt(temp[2]));
+				
+				if(temp[3].equals("true") || temp[3].equals("Nam"))
+				
+				emp.setSex(true) ;
+				else
+					emp.setSex(false) ;
+				
+				SimpleDateFormat df =new SimpleDateFormat("dd/MM/yyyy");
+				
+				emp.setAddress(temp[4]);
+				emp.setEmail(temp[5]);
+				emp.setDaywork(df.parse(temp[6])) ;
+				
+				Employee_position epos= new Employee_position();
+				epos.setPosition(temp[7]);
+				emp.setPosition(epos);
+				
+				Employee_timeworking time = new Employee_timeworking();
+				time.setTime(temp[8]);
+				emp.setTimeworking(time);
+				if(temp[9].equals("true") || temp[9].equals("Full time"))
+				emp.setKoj(true);
+				else
+					emp.setKoj(false);
+				emp.setSalary(Double.parseDouble(temp[10]));
+				Account acc = new Account();
+				acc.setAccount(temp[11]);
+				acc.setPass(temp[12]);
+				emp.setAccount(acc);
+				
+				list.add(emp);
+				
+				line=br.readLine();
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void WriteDB() {
+		String path = "D:\\Hoa Sen University\\IT\\Lap Trinh Huong Doi Tuong\\LAB\\Project\\Manage cafe\\src\\manage_cafe\\data\\Employee.txt";
+		try {
+			
+			//2.
+			File f = new File(path);
+			FileWriter fw  = new FileWriter(f, false);
+			PrintWriter pw = new PrintWriter(fw);
+			
+			//3.
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			for(Employee emp: list) {
+				String s = emp.getId()+";"+ emp.getName() + ";"+ emp.getIdcard()  +";"+ (emp.isSex()?"Nam" : "Nu") +";"+ emp.getAddress() +";"+ 
+				emp.getEmail()+ ";" + df.format(emp.getDaywork()) +";"+emp.getPosition().getPosition()+";"+ 
+				emp.getTimeworking().getTime()+";"+ (emp.isKoj()?"Full time" : "Part time")+";"+ vn.format(emp.getSalary())  +";"+ 
+				emp.getAccount().getAccount()+";"+ emp.getAccount().getPass()+";"+"0;"+ "0;"; pw.println(s);
+			}
+
+			//4.
+			pw.close();
+			fw.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateemp(Employee e) {
+		
+		for(Employee emp : list) {
+			System.out.println("update ==>"+" m = "+ emp.getId()+" menu = "+e.getId());
+			if(emp.getId() == e.getId()) {
+		
+				emp.setAddress(e.getAddress());
+				emp.setEmail(e.getEmail());
+				
+				emp.setPosition(e.getPosition());
+				emp.setTimeworking(e.getTimeworking());
+				emp.setKoj(e.isKoj());
+				emp.setSalary(e.getSalary());
+				
+				Account oldacc = e.getAccount();
+				String new_account = oldacc.getAccount();
+				
+				Account newacc = new Account();
+				newacc.setAccount(new_account);
+				emp.setAccount(newacc);
+			}
+		}
+	}
+	
+	public void deleteEmployee(int id) {
+		try {
+//			for(Employee emp : list) {
+//				if(emp.getId() == id) {
+//					list.remove(emp);
+//				}
+			
+			Iterator<Employee> iter = list.iterator();
+			while(iter.hasNext()) {
+				Employee emps = iter.next();
+				if(emps.getId() == id) {
+					iter.remove();
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sortbyid() {
+		Collections.sort(list);
+	}
+	
+	public ArrayList<Employee> getAllEmployee(){
+		
+		return list;
+	}
+}

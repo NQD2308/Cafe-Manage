@@ -1,0 +1,78 @@
+package manage_cafe.models;
+
+import java.util.Date;
+import java.util.Objects;
+
+public class Product implements Comparable<Product>{
+	
+	private String idg;
+	private String nameg;
+	private boolean unit;
+	private int inventnum;
+	private int quantities;
+	private int prb;
+	
+	public Product() {
+		
+	}
+
+	public String getIdg() {
+		return idg;
+	}
+
+	public void setIdg(String idg) {
+		this.idg = idg;
+	}
+
+	public String getNameg() {
+		return nameg;
+	}
+
+	public void setNameg(String nameg) {
+		this.nameg = nameg;
+	}
+
+	public boolean isUnit() {
+		return unit;
+	}
+
+	public void setUnit(boolean unit) {
+		this.unit = unit;
+	}
+
+	public int getInventnum() {
+		return inventnum;
+	}
+
+	public void setInventnum(int inventnum) {
+		this.inventnum += inventnum;
+//		System.out.println(inventnum+"" +"+"+ this.inventnum+"");
+	}
+
+	public int getQuantities() {
+		return quantities;
+	}
+
+	public void setQuantities(int quantities) {
+		this.quantities = quantities;
+	}
+
+	public int getPrb() {
+		return prb;
+	}
+
+	public void setPrb(int prb) {
+		this.prb = prb;
+	}
+
+	@Override
+	public int compareTo(Product pro) {
+		if(idg != pro.getIdg()) {
+			return -1;
+		} else if(idg.equals(pro.getIdg())){
+			return 
+					nameg.compareTo(pro.getNameg());
+		} else
+		return 1;
+	}
+}

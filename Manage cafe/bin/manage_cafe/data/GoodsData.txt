@@ -1,0 +1,7 @@
+CF123;Arabica;Pakage;50
+CF124;Robusta;Pakage;100
+CF125;Cherry;Pakage;200
+CF126;Culi;Pakage;210
+CF127;Moka;Pakage;100
+NL200;Suger;Pakage;20
+NL201;Milk;Pakage;20
